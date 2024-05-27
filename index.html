@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sistem Informasi Geografis</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+</head>
+<body>
+    <h1>INI MAPS</h1>
+    <hr>
+    <div id="map" style="height: 600px"></div>
+    <hr>
+    <script>
+    var map = L.map("map").setView([-2.7566141171012823, 115.27177621650296], 8);
+    L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        maxZoom: 19,
+        attribution:
+        '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+    }).addTo(map);
+        var customIcon = L.icon({
+        // iconUrl: 'hafiz-location.png', // Ganti dengan URL gambar ikon kustom Anda
+        iconUrl: 'icon-location.png', // Ganti dengan URL gambar ikon kustom Anda
+        iconSize: [30, 35], // Sesuaikan ukuran ikon sesuai kebutuhan Anda
+        iconAnchor: [16, 16], // Posisi titik anchor ikon relatif terhadap ikon itu sendiri
+        popupAnchor: [0, -16] // Posisi titik anchor popup relatif terhadap ikon itu sendiri
+        });
+
+    document.addEventListener("DOMContentLoaded", function(){
+        fetch("http://localhost/maps-p2/getLokasi.php")
+        .then(response => response.json())
+        .then(data =>{
+            if (data !== "0 results"){
+                data.forEach(item=>{
+                    var marker = L.marker([item.lat, item.lon],{ icon: customIcon }).addTo(map);
+                    marker.bindPopup(item.keterangan);
+                });
+            }else{
+                console.log("No result found.");
+            }
+        })
+        .catch(eror => console.error("Eror Fetching Data:", eror));
+    });
+    </script>
+</body>
+</html>
