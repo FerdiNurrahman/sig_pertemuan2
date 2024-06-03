@@ -43,23 +43,24 @@
         .catch(eror => console.error("Eror Fetching Data:", eror));
     });
 
-        document.addEventListener("DOMContentLoaded", function() {
-        fetch('taman_pelaihari.geojson')
-        .then(response => response.json())
-        .then(data => {
-            L.geoJSON(data, {
-                pointToLayer: function (feature, latLng) {
-                    return L.marker(latLng, { icon: customIcon });
-                },
-                onEachFeature: function (feature, layer) {
-                    if (feature.properties && feature.properties.keterangan) {
-                        layer.bindPopup(feature.properties.keterangan);
-                    }
+    document.addEventListener("DOMContentLoaded", function() {
+    fetch('taman_pelaihari.geojson')
+    .then(response => response.json())
+    .then(data => {
+        L.geoJSON(data, {
+            pointToLayer: function (feature, latLng) {
+                return L.marker(latLng, { icon: customIcon });
+            },
+            onEachFeature: function (feature, layer) {
+                if (feature.properties && feature.properties.nama_lokasi) {
+                    layer.bindPopup(feature.properties.nama_lokasi);
                 }
-            }).addTo(map);
-        })
-        .catch(error => console.error("Error Fetching GeoJSON data", error));
-    });
+            }
+        }).addTo(map);
+    })
+    .catch(error => console.error("Error Fetching GeoJSON data", error));
+});
+
     </script>
 </body>
 </html>
