@@ -46,7 +46,7 @@
     });
 
     document.addEventListener("DOMContentLoaded", function() {
-    fetch('Tugas.geojson')
+    fetch('map.geojson')
     .then(response => response.json())
     .then(data => {
         L.geoJSON(data, {
@@ -59,11 +59,57 @@
                 }
             },
             style: function (feature){
-                return{
-                    fillopacity: 0.5,
-                    weight: 1,
-                    opacity: 0.8,
-                    color: "#ffff00"};              
+                console.log(feature.properties.jenis);
+                if (feature.properties.jenis=="taman"){
+                    return{
+                    fillopacity: 1, // transparansi isian
+                    weight: 1, // ketebalan garis
+                    opacity: 0.8, // transparansi garis
+                    color: "#6aa84f"}; 
+                }
+                if (feature.properties.jenis=="penting"){
+                    return{
+                    fillopacity: 0.5, // transparansi isian
+                    weight: 1, // ketebalan garis
+                    opacity: 0.8, // transparansi garis
+                    color: "#fff000"}; 
+                }
+                if (feature.properties.jenis=="ibadah"){
+                    return{
+                    fillopacity: 2, // transparansi isian
+                    weight: 1, // ketebalan garis
+                    opacity: 0.8, // transparansi garis
+                    color: "#2986cc"}; 
+                }
+                if (feature.properties.jenis=="terminal"){
+                    return{
+                    fillopacity: 1, // transparansi isian
+                    weight: 1, // ketebalan garis
+                    opacity: 0.8, // transparansi garis
+                    color: "#8e7cc3"}; 
+                }
+                if (feature.properties.jenis=="gor"){
+                    return{
+                    fillopacity: 1, // transparansi isian
+                    weight: 1, // ketebalan garis
+                    opacity: 0.8, // transparansi garis
+                    color: "#274e13"}; 
+                }
+                if (feature.properties.jenis=="kuburan"){
+                    return{
+                    fillopacity: 1, // transparansi isian
+                    weight: 1, // ketebalan garis
+                    opacity: 0.8, // transparansi garis
+                    color: "#f44336"}; 
+                }
+                if (feature.properties.jenis=="penginapan"){
+                    return{
+                    fillopacity: 1, // transparansi isian
+                    weight: 1, // ketebalan garis
+                    opacity: 0.8, // transparansi garis
+                    color: "#36f1f4"}; 
+                }
+                             
             }
         }).addTo(map);
     })
